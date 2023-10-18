@@ -5,3 +5,5 @@ pub use canvas::Canvas;
 pub use canvas::Window;
 pub mod tuple;
 pub use tuple::Vector2D;
+pub mod turtle;
+pub use turtle::Turtle;
