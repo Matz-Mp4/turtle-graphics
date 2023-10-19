@@ -6,4 +6,4 @@ pub use canvas::Window;
 pub mod tuple;
 pub use tuple::Tuple2;
 pub mod turtle;
-pub use turtle::Turtle;
+pub use turtle::TurtleLogo;
