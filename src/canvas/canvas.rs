@@ -5,7 +5,7 @@ use std::{
 };
 
 pub trait Canvas {
-    fn new(name: &str, width: usize, height: usize) -> Self
+    fn new(width: usize, height: usize) -> Self
     where
         Self: Sized;
     fn width(&self) -> usize;

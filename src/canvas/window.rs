@@ -27,7 +27,7 @@ impl Canvas for WindowCanvas {
         &mut self.data[row * self.width + col]
     }
 
-    fn new(name: &str, width: usize, height: usize) -> Self
+    fn new(width: usize, height: usize) -> Self
     where
         Self: Sized,
     {
@@ -38,7 +38,7 @@ impl Canvas for WindowCanvas {
         let data = vec![Color::black(); width * height];
 
         let window =
-            minifb::Window::new(name, width, height, options).expect("Failed to create window.");
+            minifb::Window::new("TurtleGraphics", width, height, options).expect("Failed to create window.");
 
         WindowCanvas {
             data,

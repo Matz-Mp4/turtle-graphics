@@ -3,6 +3,7 @@ pub use color::Color;
 pub mod canvas; 
 pub use canvas::Canvas;
 pub use canvas::WindowCanvas;
+pub use canvas::ImageCanvas;
 pub mod tuple;
 pub use tuple::Tuple2;
 pub mod turtle;
