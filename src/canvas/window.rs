@@ -1,12 +1,12 @@
 use crate::{Canvas, Color};
 
-pub struct Window {
+pub struct WindowCanvas {
     data: Vec<Color>,
     width: usize,
     height: usize,
     window: minifb::Window,
 }
-impl Canvas for Window {
+impl Canvas for WindowCanvas {
     fn width(&self) -> usize {
         self.width
     }
@@ -40,7 +40,7 @@ impl Canvas for Window {
         let window =
             minifb::Window::new(name, width, height, options).expect("Failed to create window.");
 
-        Window {
+        WindowCanvas {
             data,
             width,
             height,
@@ -56,7 +56,7 @@ impl Canvas for Window {
         &mut self.height
     }
 }
-impl Window {
+impl WindowCanvas {
     fn from_u8_rgb(r: u8, g: u8, b: u8) -> u32 {
         let (r, g, b) = (r as u32, g as u32, b as u32);
         (r << 16) | (g << 8) | b
@@ -69,7 +69,7 @@ impl Window {
         let mut data_conv = vec![0 as u32; self.width * self.height];
         for (i, color) in self.data.iter().enumerate() {
             let (r, g, b) = color.color_into_pixel();
-            data_conv[i] = Window::from_u8_rgb(r, g, b);
+            data_conv[i] = WindowCanvas::from_u8_rgb(r, g, b);
         }
         self.window
             .update_with_buffer(&data_conv, self.width, self.height)
