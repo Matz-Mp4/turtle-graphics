@@ -26,15 +26,15 @@ pub trait Tuple2<T: Real + Zero> {
         Tuple2::new(T::zero(), T::zero())
     }
 }
-
-impl<T> AsRef<dyn Tuple2<T>> for dyn Tuple2<T> {
-    fn as_ref(&self) -> &(dyn Tuple2<T> + 'static) {
-        self
-    }
-}
-
-impl<T> AsMut<dyn Tuple2<T>> for dyn Tuple2<T> {
-    fn as_mut(&mut self) -> &mut (dyn Tuple2<T> + 'static) {
-        self
-    }
-}
+//
+//impl<T> AsRef<dyn Tuple2<T>> for dyn Tuple2<T> {
+//    fn as_ref(&self) -> &(dyn Tuple2<T> + 'static) {
+//        self
+//    }
+//}
+//
+//impl<T> AsMut<dyn Tuple2<T>> for dyn Tuple2<T> {
+//    fn as_mut(&mut self) -> &mut (dyn Tuple2<T> + 'static) {
+//        self
+//    }
+//}
