@@ -53,6 +53,7 @@ impl Color {
     pub fn color_into_pixel(&self) -> (u8, u8, u8) {
         let red = Self::scale_color_component(self.red);
         let blue = Self::scale_color_component(self.blue);
+
         let green = Self::scale_color_component(self.green);
         (red, green, blue)
     }
