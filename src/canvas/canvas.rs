@@ -18,13 +18,10 @@ pub trait Canvas {
     fn color_at(&self, row: usize, col: usize) -> &Color;
     fn color_mut_at(&mut self, row: usize, col: usize) -> &mut Color;
     fn set_color(&mut self, row: usize, col: usize, color: Color) {
-        let temp_row = row % self.width();
-        let temp_col = col % self.height();
-
-        /* if row < self.width() && col < self.height() { */
+        let temp_row = row % self.height();
+        let temp_col = col % self.width();
         let c = self.color_mut_at(temp_row, temp_col);
         *c = color;
-        /* } */
     }
     fn draw_line<T: Real + Zero>(
         &mut self,
@@ -50,12 +47,13 @@ pub trait Canvas {
 
         let mut x = *q1.x();
         let mut y = *q1.y();
+        let height= self.height();
 
         let steps = temp.round().to_usize().unwrap();
         for i in 0..=steps {
             let temp_x = x.round().to_usize().unwrap();
             let temp_y = y.round().to_usize().unwrap();
-            self.set_color(temp_x, temp_y, color);
+            self.set_color( temp_x, height - temp_y, color);
             x = x + x_inc;
             y = y + y_inc;
         }
