@@ -70,11 +70,14 @@ impl<'a> Canvas for ImageCanvas {
     }
 
     fn color_at(&self, row: usize, col: usize) -> &Color {
-        &self.data[row * self.width + col]
-    }
+        /* &self.data[row * self.width + col] */
 
-    fn color_at_mut(&mut self, row: usize, col: usize) -> &mut Color {
-        &mut self.data[row * self.width + col]
+        &self.data[col * self.width + row]
+    }
+    fn color_mut_at(&mut self, row: usize, col: usize) -> &mut Color {
+        /* &mut self.data[row * self.height + col] */
+
+        &mut self.data[col * self.width + row]
     }
 
     fn new(width: usize, height: usize) -> Self {

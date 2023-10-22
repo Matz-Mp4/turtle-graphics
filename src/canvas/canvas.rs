@@ -1,4 +1,6 @@
-use crate::Color;
+use num_traits::{real::Real, Zero};
+
+use crate::{Color, ITuple2};
 use std::{
     convert::{AsMut, AsRef},
     ops::{Index, IndexMut},
@@ -14,7 +16,50 @@ pub trait Canvas {
     fn height_as_mut(&mut self) -> &mut usize;
     fn clear(&mut self);
     fn color_at(&self, row: usize, col: usize) -> &Color;
-    fn color_at_mut(&mut self, row: usize, col: usize) -> &mut Color;
+    fn color_mut_at(&mut self, row: usize, col: usize) -> &mut Color;
+    fn set_color(&mut self, row: usize, col: usize, color: Color) {
+        let temp_row = row % self.width();
+        let temp_col = col % self.height();
+
+        /* if row < self.width() && col < self.height() { */
+        let c = self.color_mut_at(temp_row, temp_col);
+        *c = color;
+        /* } */
+    }
+    fn draw_line<T: Real + Zero>(
+        &mut self,
+        q1: &impl ITuple2<T>,
+        q2: &impl ITuple2<T>,
+        color: Color,
+    ) where
+        Self: Sized,
+    {
+        let dx = *q2.x() - *q1.x();
+        let dy = *q2.y() - *q1.y();
+
+        let temp = {
+            if dx.abs() > dy.abs() {
+                dx.abs()
+            } else {
+                dy.abs()
+            }
+        };
+
+        let x_inc = dx / temp;
+        let y_inc = dy / temp;
+
+        let mut x = *q1.x();
+        let mut y = *q1.y();
+
+        let steps = temp.round().to_usize().unwrap();
+        for i in 0..=steps {
+            let temp_x = x.round().to_usize().unwrap();
+            let temp_y = y.round().to_usize().unwrap();
+            self.set_color(temp_x, temp_y, color);
+            x = x + x_inc;
+            y = y + y_inc;
+        }
+    }
 }
 
 //impl AsRef<dyn Canvas> for dyn Canvas {
