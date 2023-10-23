@@ -1,3 +1,7 @@
+use std::ops::{Mul, Div, Add};
+
+use num_traits::real::Real;
+
 #[derive(Clone, Copy, Debug)]
 pub struct Color {
     pub red: f64,
@@ -70,3 +74,4 @@ impl Color {
         (component * 255.0) as u8
     }
 }
+
