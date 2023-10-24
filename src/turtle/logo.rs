@@ -27,20 +27,20 @@ impl<T: Real + Zero> TurtleLogo<T> {
         TurtleLogo::new(point, self.vector)
     }
 
-    pub fn foward(&mut self, dis: impl ITuple2<T>, color: Color, win: &mut impl Canvas) -> Self {
-        win.draw_line::<T>(&self.point, &dis, color);
+    pub fn foward(&mut self, dis: &impl ITuple2<T>, color: Color, win: &mut impl Canvas) -> Self {
+        win.draw_line::<T>(&self.point, dis, color);
         self.mov(dis)
     }
-    pub fn mov(&self, dis: impl ITuple2<T>) -> Self {
+    pub fn mov(&self, dis: &impl ITuple2<T>) -> Self {
         let x = *self.point.x() + *dis.x();
         let y = *self.point.y() + *dis.y();
 
         self.with_point(Tuple2::new(x, y))
     }
 
-    pub fn resize(&self, scaling: T) -> Self {
-        let x = *self.vector.x() * scaling;
-        let y = *self.vector.y() * scaling;
+    pub fn resize(&self, size: T) -> Self {
+        let x = *self.vector.x() * size;
+        let y = *self.vector.y() * size;
 
         self.with_vector(Tuple2::new(x, y))
     }
@@ -52,5 +52,25 @@ impl<T: Real + Zero> TurtleLogo<T> {
         let x = *self.vector.x() * angle_cos - *self.vector.y() * angle_sin;
         let y = *self.vector.y() * angle_cos + *self.vector.x() * angle_sin;
         self.with_vector(Tuple2::new(x, y))
+    }
+
+    pub fn spin(&self, n: usize, angle: T) -> Self {
+        for _ in 0..n {
+            self.turn(angle);
+        }
+        *self
+    }
+
+    pub fn scale(&self, n: usize, scaling: T) -> Self {
+        for _ in 0..n {
+            self.resize(scaling);
+        }
+        *self
+    }
+    pub fn shift(&self, n: usize, dis: &impl ITuple2<T>) -> Self {
+        for _ in 0..n {
+            self.mov(dis);
+        }
+        *self
     }
 }
