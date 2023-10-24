@@ -18,6 +18,13 @@ pub trait Canvas {
     fn clear(&mut self);
     fn color_at(&self, row: usize, col: usize) -> &Color;
     fn color_mut_at(&mut self, row: usize, col: usize) -> &mut Color;
+    fn set_background(&mut self, color: Color) {
+        for row in 0..self.height() {
+            for col in 0..self.width() {
+                self.set_color(row, col, color);
+            }
+        }
+    }
     fn set_color(&mut self, row: usize, col: usize, color: Color) {
         let temp_row = row % self.height();
         let temp_col = col % self.width();
