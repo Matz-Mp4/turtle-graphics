@@ -26,8 +26,8 @@ pub trait Canvas {
         }
     }
     fn set_color(&mut self, row: i32, col: i32, color: Color) {
-        let temp_row = row % self.height();
-        let temp_col = col % self.width();
+        let temp_row = row.abs() % self.height();
+        let temp_col = col.abs() % self.width();
         let c = self.color_mut_at(temp_row as usize, temp_col as usize);
         *c = color;
     }
@@ -71,76 +71,19 @@ pub trait Canvas {
             }
         };
 
-        let mut intery: T;
-        let one = T::one();
-
-        //--------------------------------------------------------------
-
-        let xend = round(x0);
-        let yend = y0 + gradient * (xend - x0);
-        let one = T::one();
-        let half = one / (one + one);
-        let xgap = rfpart(x0 + half);
-        let xpx11 = xend.to_i32().unwrap();
-        let ypx11 = ipart(yend);
+        let xpx11 = x0.to_i32().unwrap();
+        let xpx12 = x1.to_i32().unwrap();
+        let mut intery = y0;
 
         if steep {
-            let mut c = color_intensity(rfpart(yend) * xgap, &color);
-            self.set_color(ypx11, xpx11, c);
-            c = color_intensity(fpart(yend) * xgap, &color);
-            self.set_color(ypx11 + 1, height - xpx11, c);
-        } else {
-            let mut c = color_intensity(rfpart(yend) * xgap, &color);
-            self.set_color(xpx11, ypx11, c);
-            c = color_intensity(fpart(yend) * xgap, &color);
-            self.set_color(xpx11 + 1, height - ypx11, c);
-        }
-        intery = yend + gradient;
-
-        //--------------------------------------------------------------
-
-        let xpx12;
-
-        let xend = round(x1);
-        let yend = y1 + gradient * (xend - x1);
-        let xgap = rfpart(x1 + half);
-        xpx12 = xend.to_i32().unwrap();
-        let ypx12 = ipart(yend);
-
-        if steep {
-            self.set_color(
-                ypx12,
-                height - xpx12,
-                color_intensity(rfpart(yend) * xgap, &color),
-            );
-            self.set_color(
-                ypx12 + 1,
-                height - xpx12,
-                color_intensity(fpart(yend) * xgap, &color),
-            );
-        } else {
-            self.set_color(
-                ypx12,
-                height - xpx12,
-                color_intensity(rfpart(yend) * xgap, &color),
-            );
-            self.set_color(
-                ypx12,
-                height - (xpx12 + 1),
-                color_intensity(fpart(yend) * xgap, &color),
-            );
-        }
-        //--------------------------------------------------------------
-
-        if steep {
-            for x in (xpx11 + 1)..xpx12 {
+            for x in xpx11..=xpx12 {
                 self.set_color(
                     ipart(intery),
                     height - x,
                     color_intensity(rfpart(intery), &color),
                 );
                 self.set_color(
-                    ipart(intery) + 1,
+                    ipart(intery) - 1,
                     height - x,
                     color_intensity(fpart(intery), &color),
                 );
@@ -155,7 +98,7 @@ pub trait Canvas {
                 );
                 self.set_color(
                     x,
-                    height - ipart(intery),
+                    height - ipart(intery) -1,
                     color_intensity(rfpart(intery), &color),
                 );
                 intery = intery + gradient;

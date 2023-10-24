@@ -31,13 +31,6 @@ impl<T: Real + Zero> TurtleLogo<T> {
         TurtleLogo::new(self.point, vector)
     }
 
-    fn vector_len(&self) -> T {
-        let dx = (*self.vector.x() - *self.point.x()).abs();
-        let dy = (*self.vector.y() - *self.point.y()).abs();
-        let res = dx * dx + dy * dy;
-        res.sqrt()
-    }
-
     pub fn with_point(self, point: impl ITuple2<T>) -> TurtleLogo<T> {
         TurtleLogo::new(point, self.vector)
     }
@@ -51,9 +44,7 @@ impl<T: Real + Zero> TurtleLogo<T> {
     pub fn mov(&self, step: T) -> Self {
         let x = *self.point.x() + *self.vector.x() * step;
         let y = *self.point.y() + *self.vector.y() * step;
-
-        let res = self.with_point(Tuple2::new(x, y));
-        res.with_vector(Tuple2::new(x + *self.vector.x(), y + *self.vector.y()))
+        self.with_point(Tuple2::new(x.round(), y.round()))
     }
 
     pub fn resize(&self, size: T) -> Self {
@@ -63,12 +54,15 @@ impl<T: Real + Zero> TurtleLogo<T> {
         self.with_vector(Tuple2::new(x, y))
     }
 
+    ///angle in radian
     pub fn turn(&self, angle: T) -> Self {
-        let angle_cos = angle.to_radians().cos();
-        let angle_sin = angle.to_radians().sin();
+        let angle_cos = angle.cos();
+        let angle_sin = angle.sin();
 
-        let x = *self.vector.x() * angle_cos - *self.vector.y() * angle_sin;
-        let y = *self.vector.y() * angle_cos + *self.vector.x() * angle_sin;
+        let dx = *self.vector.x();
+        let dy = *self.vector.y();
+        let x = dx * angle_cos - dy * angle_sin;
+        let y = dy * angle_cos + dx * angle_sin;
         self.with_vector(Tuple2::new(x, y))
     }
 

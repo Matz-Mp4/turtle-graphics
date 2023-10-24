@@ -1,5 +1,6 @@
 use std::f64::consts::PI;
-use std::ops::Index;
+use std::thread::sleep;
+use std::time::Duration;
 
 use turtle_graphics::Canvas;
 use turtle_graphics::Color;
@@ -10,29 +11,34 @@ use turtle_graphics::WindowCanvas;
 
 pub fn polygon(tur: &mut TurtleLogo<f64>, sides: usize, color: Color, can: &mut impl Canvas) {
     for _ in 0..sides {
-        /* tur.foward(&Tuple2::new(1.0, 1.0), color, can); */
-        /* tur.turn(2.0 * PI / sides as f64); */
+        *tur = tur.foward(1.0, color, can);
+        *tur = tur.turn(2.0 * PI / sides as f64);
     }
 }
 
 fn main() {
-    let mut canvas = WindowCanvas::new(600, 600);
-    let mut tur = TurtleLogo::new(Tuple2::<f64>::zero(), Tuple2::new(1.0, 1.0));
-    tur = tur.with_point(Tuple2::new(0.0, 0.0));
-    canvas.set_background(Color::white());
+    let mut canvas = WindowCanvas::new(1000, 1000);
+    let mut tur = TurtleLogo::new(Tuple2::new(400.0, 300.0), Tuple2::new(300.0, 300.0));
+    show_turtle(&mut tur);
+    /* tur = tur.foward(1.0, Color::red(), &mut canvas); */
+    /* show_turtle(&mut tur); */
 
-    /* canvas.convert_to_ppm("./", "teste.ppm"); */
+    /* tur = tur.foward(100.0, Color::red(), &mut canvas); */
+    /* show_turtle(&mut tur); */
+    /* tur = tur.turn(90.0); */
+    /* show_turtle(&mut tur); */
+    /* tur = tur.foward(1.0, Color::red(), &mut canvas); */
 
-    tur = tur.foward(100.0, Color::red(), &mut canvas);
-    show_turtle(&tur);
-    tur = tur.turn(60.0);
-    show_turtle(&tur);
-    tur = tur.foward(100.0, Color::red(), &mut canvas);
+    let delay = Duration::from_millis(100);
 
-    let mut x = 1.0;
+    /* polygon(&mut tur, 3, Color::white(), &mut canvas); */
+    polygon(&mut tur, 7, Color::white(), &mut canvas);
+    /* canvas.convert_to_ppm("./", "output.ppm"); */
+    let sides = 5;
     while !canvas.should_close() {
-        /* tur = tur.foward(x, Color::red(), &mut canvas); */
-        /* x += 1.0; */
+        tur = tur.foward(1.0, Color::red(), &mut canvas);
+        tur = tur.turn(30.0);
+        /* show_turtle(&mut tur); */
         canvas.display();
     }
 }
