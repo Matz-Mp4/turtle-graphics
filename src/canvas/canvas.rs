@@ -11,8 +11,8 @@ pub trait Canvas {
     fn new(width: usize, height: usize) -> Self
     where
         Self: Sized;
-    fn width(&self) -> usize;
-    fn height(&self) -> usize;
+    fn width(&self) -> i32;
+    fn height(&self) -> i32;
     fn width_as_mut(&mut self) -> &mut usize;
     fn height_as_mut(&mut self) -> &mut usize;
     fn clear(&mut self);
@@ -25,10 +25,10 @@ pub trait Canvas {
             }
         }
     }
-    fn set_color(&mut self, row: usize, col: usize, color: Color) {
+    fn set_color(&mut self, row: i32, col: i32, color: Color) {
         let temp_row = row % self.height();
         let temp_col = col % self.width();
-        let c = self.color_mut_at(temp_row, temp_col);
+        let c = self.color_mut_at(temp_row as usize, temp_col as usize);
         *c = color;
     }
     //Xiaolin Wu's line algorithm
@@ -41,7 +41,7 @@ pub trait Canvas {
         Self: Sized,
     {
         let color_intensity = |x: f64, c: &Color| Color::new(c.red * x, c.green * x, c.blue * x);
-        let ipart = |x: T| x.floor().to_usize().unwrap();
+        let ipart = |x: T| x.floor().to_i32().unwrap();
         let round = |x: T| x.round();
         let fpart = |x: T| (x - x.floor()).to_f64().unwrap();
         let rfpart = |x| 1.0 - fpart(x);
@@ -81,7 +81,7 @@ pub trait Canvas {
         let one = T::one();
         let half = one / (one + one);
         let xgap = rfpart(x0 + half);
-        let xpx11 = xend.to_usize().unwrap();
+        let xpx11 = xend.to_i32().unwrap();
         let ypx11 = ipart(yend);
 
         if steep {
@@ -104,7 +104,7 @@ pub trait Canvas {
         let xend = round(x1);
         let yend = y1 + gradient * (xend - x1);
         let xgap = rfpart(x1 + half);
-        xpx12 = xend.to_usize().unwrap();
+        xpx12 = xend.to_i32().unwrap();
         let ypx12 = ipart(yend);
 
         if steep {

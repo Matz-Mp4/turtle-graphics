@@ -9,12 +9,12 @@ pub struct WindowCanvas {
     window: minifb::Window,
 }
 impl Canvas for WindowCanvas {
-    fn width(&self) -> usize {
-        self.width
+    fn width(&self) -> i32{
+        self.width as i32
     }
 
-    fn height(&self) -> usize {
-        self.height
+    fn height(&self) -> i32{
+        self.height as i32
     }
 
     fn clear(&mut self) {
