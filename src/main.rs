@@ -17,9 +17,8 @@ pub fn polygon(tur: &mut TurtleLogo<f64>, sides: usize, color: Color, can: &mut 
 }
 
 fn main() {
-    let mut canvas = WindowCanvas::new(1000, 1000);
-    let mut tur = TurtleLogo::new(Tuple2::new(400.0, 300.0), Tuple2::new(50.0, 50.0));
-    show_turtle(&mut tur);
+    let mut canvas = WindowCanvas::new(600, 600);
+    let mut tur = TurtleLogo::new(Tuple2::new(300.0, 400.0), Tuple2::new(50.0, 50.0));
     /* tur = tur.foward(1.0, Color::red(), &mut canvas); */
     /* show_turtle(&mut tur); */
 
@@ -35,12 +34,19 @@ fn main() {
     /* polygon(&mut tur, 7, Color::white(), &mut canvas); */
     /* canvas.convert_to_ppm("./", "output.ppm"); */
     let sides = 5;
+    /* tur = tur.foward(1.0, Color::red(), &mut canvas); */
+    /* tur = tur.turn(30.0); */
+    /* show_turtle(&mut tur); */
+    polygon(&mut tur, 4, Color::white(), &mut canvas);
+    /* polygon(&mut tur, 6, Color::white(), &mut canvas); */
+    /* canvas.convert_to_ppm("./", "output.ppm"); */
+    let sides = 5;
     while !canvas.should_close() {
-        /* tur = tur.foward(1.0, Color::red(), &mut canvas); */
-        /* tur = tur.turn(30.0); */
-        /* show_turtle(&mut tur); */
-        polygon(&mut tur, 10, Color::white(), &mut canvas);
+        tur = tur.foward(1.0, Color::red(), &mut canvas);
+        tur = tur.turn(PI / 12.0);
         canvas.display();
+        let delay = Duration::from_millis(100);
+        sleep(delay);
     }
 }
 
