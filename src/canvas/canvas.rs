@@ -40,9 +40,10 @@ pub trait Canvas {
     ) where
         Self: Sized,
     {
+        let half = T::one() / (T::one() + T::one());
         let color_intensity = |x: f64, c: &Color| Color::new(c.red * x, c.green * x, c.blue * x);
         let ipart = |x: T| x.floor().to_i32().unwrap();
-        let round = |x: T| x.round();
+        let round = |x: T| ipart(x + half);
         let fpart = |x: T| (x - x.floor()).to_f64().unwrap();
         let rfpart = |x| 1.0 - fpart(x);
         let mut y0 = *q1.y();
