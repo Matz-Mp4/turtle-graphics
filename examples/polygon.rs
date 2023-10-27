@@ -8,7 +8,7 @@ use turtle_graphics::WindowCanvas;
 
 pub fn polygon(tur: &mut TurtleLogo<f64>, sides: usize, color: Color, can: &mut impl Canvas) {
     for _ in 0..sides {
-        *tur = tur.foward(1.0, color, can);
+        *tur = tur.forward(1.0, color, can);
         *tur = tur.turn(2.0 * PI / sides as f64);
     }
 }
@@ -25,5 +25,3 @@ fn main() {
         canvas.display();
     }
 }
-
-

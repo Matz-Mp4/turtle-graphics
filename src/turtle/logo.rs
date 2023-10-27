@@ -35,7 +35,7 @@ impl<T: Real + Zero> TurtleLogo<T> {
         TurtleLogo::new(point, self.vector)
     }
 
-    pub fn foward(&mut self, step: T, color: Color, win: &mut impl Canvas) -> Self {
+    pub fn forward(&mut self, step: T, color: Color, win: &mut impl Canvas) -> Self {
         let a = &self.point;
         let res = self.mov(step);
         win.draw_line::<T>(a, &res.point, color);
