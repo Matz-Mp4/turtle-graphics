@@ -66,23 +66,36 @@ impl<T: Real + Zero> TurtleLogo<T> {
         self.with_vector(Tuple2::new(x, y))
     }
 
-    pub fn spin(&self, n: usize, angle: T) -> Self {
+    pub fn scale<F>(mut self, n: usize, scaling: T, instructions: &mut F) -> Self
+    where
+        F: FnMut(TurtleLogo<T>) -> TurtleLogo<T>,
+    {
         for _ in 0..n {
-            self.turn(angle);
+            self = instructions(self);
+            self = self.resize(scaling);
         }
-        *self
+        self
     }
 
-    pub fn scale(&self, n: usize, scaling: T) -> Self {
+    pub fn spin<F>(mut self, n: usize, angle: T, instructions: &mut F) -> Self
+    where
+        F: FnMut(TurtleLogo<T>) -> TurtleLogo<T>,
+    {
         for _ in 0..n {
-            self.resize(scaling);
+            self = instructions(self);
+            self = self.turn(angle);
         }
-        *self
+        self
     }
-    pub fn shift(&self, n: usize, step: T) -> Self {
+    pub fn shift<F, B>(mut self, n: usize, step: T, instructions: &mut F) -> Self
+    where
+        F: FnMut(TurtleLogo<T>) -> TurtleLogo<T>,
+    {
         for _ in 0..n {
-            self.mov(step);
+            self = instructions(self);
+            println!("1");
+            self = self.mov(step);
         }
-        *self
+        self
     }
 }
