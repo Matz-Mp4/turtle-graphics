@@ -65,9 +65,9 @@ pub trait Canvas {
         }
         dy <<= 1;
         dx <<= 1;
-        self.set_color(x0, y0, color);
         let height = self.height();
-        let width = self.width();
+        self.set_color(x0, height - y0, color);
+        /* let width = self.width(); */
 
         if dx > dy {
             let mut fraction = dy - (dx >> 1);
@@ -79,7 +79,7 @@ pub trait Canvas {
                 x0 += stepx;
                 fraction += dy;
                 /* pixel[x0+y0] = pix; */
-                self.set_color(x0, y0, color)
+                self.set_color(x0, height - y0, color)
             }
         } else {
             let mut fraction = dx - (dy >> 1);
@@ -90,7 +90,7 @@ pub trait Canvas {
                 }
                 y0 += stepy;
                 fraction += dx;
-                self.set_color(x0, y0, color)
+                self.set_color(x0, height - y0, color)
             }
         }
     }
