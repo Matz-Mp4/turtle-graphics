@@ -13,7 +13,7 @@ pub trait Canvas {
     fn clear(&mut self);
     fn color_at(&self, row: usize, col: usize) -> &Color;
     fn color_mut_at(&mut self, row: usize, col: usize) -> &mut Color;
-    ///Define the background of the canvas
+    
     fn set_background(&mut self, color: Color) {
         for row in 0..self.width() {
             for col in 0..self.height() {
@@ -43,7 +43,7 @@ pub trait Canvas {
     ///    canvas.convert_to_ppm("", "canvas.ppm");
     ///
     ///```
-    ///![Diagonal Line](https://github.com/Matz-Mp4/turtle-graphics/blob/main/pictures/diagonal_line.png)
+    /// ![Diagonal Line](https://github.com/Matz-Mp4/turtle-graphics/blob/main/pictures/diagonal_line.png)
     ///
     fn draw_line<T: Real + Zero>(
         &mut self,
