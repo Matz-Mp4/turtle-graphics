@@ -12,7 +12,24 @@ pub trait ITuple2<T: Real> {
     fn y(&self) -> &T;
 }
 
-#[derive(Copy, Clone)]
+impl<T: Real + Zero> ITuple2<T> for (T, T) {
+    fn new(x: T, y: T) -> Self
+    where
+        Self: Sized,
+    {
+        (x,y)
+    }
+
+    fn x(&self) -> &T {
+        &self.0
+    }
+
+    fn y(&self) -> &T {
+        &self.1
+    }
+}
+
+#[derive(Copy, Clone, Debug)]
 pub struct Tuple2<T: Real + Zero> {
     x: T,
     y: T,

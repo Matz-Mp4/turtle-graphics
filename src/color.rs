@@ -1,7 +1,3 @@
-use std::ops::{Mul, Div, Add};
-
-use num_traits::real::Real;
-
 #[derive(Clone, Copy, Debug)]
 pub struct Color {
     pub red: f64,

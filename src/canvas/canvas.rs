@@ -1,11 +1,6 @@
 use num_traits::{real::Real, Zero};
 
 use crate::{Color, ITuple2};
-use std::{
-    convert::{AsMut, AsRef},
-    mem::swap,
-    ops::{Index, IndexMut},
-};
 
 pub trait Canvas {
     fn new(width: usize, height: usize) -> Self
@@ -25,13 +20,30 @@ pub trait Canvas {
             }
         }
     }
-    fn set_color(&mut self, row: i32, col: i32, color: Color) {
-        let temp_row = row.abs() % self.width();
-        let temp_col = col.abs() % self.height();
-        /* println!("(x,y) ({} , {})", temp_col,temp_row); */
-        let c = self.color_mut_at(temp_row as usize, temp_col as usize);
+    ///Define a color of a pixel. The parameter x represents the column
+    ///and the parameter represents y the row.
+    fn set_color(&mut self, x: i32, y: i32, color: Color) {
+        let temp_col = x.abs() % self.width();
+        let temp_row = y.abs() % self.height();
+        let c = self.color_mut_at(temp_col as usize, temp_row as usize);
         *c = color;
     }
+    ///Draw a line using Bresenham's line algorithm
+    ///
+    ///# Example
+    ///```rust
+    ///# use turtle_graphics::{ImageCanvas, Canvas, WHITE};
+    ///
+    ///
+    ///    let mut canvas = ImageCanvas::new(600,600);
+    ///    let a = (0.0,0.0);
+    ///    let b = (600.0,600.0);
+    ///    canvas.draw_line(&a,&b, WHITE);
+    ///    canvas.convert_to_ppm("", "canvas.ppm");
+    ///
+    ///```
+    ///![Diagonal Line](doc/pictures/diagonal_line.png)
+    ///
     fn draw_line<T: Real + Zero>(
         &mut self,
         q1: &impl ITuple2<T>,
@@ -47,8 +59,8 @@ pub trait Canvas {
 
         let mut dx = x1 - x0;
         let mut dy = y1 - y0;
-        let mut stepx = 0;
-        let mut stepy = 0;
+        let stepx;
+        let stepy;
 
         if dy < 0 {
             dy = -dy;
@@ -95,36 +107,3 @@ pub trait Canvas {
         }
     }
 }
-
-//impl AsRef<dyn Canvas> for dyn Canvas {
-//    fn as_ref(&self) -> &(dyn Canvas + 'static) {
-//        self
-//    }
-//}
-//
-//impl AsMut<dyn Canvas> for dyn Canvas {
-//    fn as_mut(&mut self) -> &mut (dyn Canvas + 'static) {
-//        self
-//    }
-//}
-//
-//impl Index<usize> for dyn Canvas {
-//    type Output = [Color];
-//
-//    fn index(&self, row: usize) -> &[Color] {
-//        let start = row * self.width();
-//        let colors = self.pixels();
-//
-//        &colors[start..start + self.width()]
-//    }
-//}
-//
-//impl IndexMut<usize> for dyn Canvas {
-//    fn index_mut(&mut self, row: usize) -> &mut [Color] {
-//        let width = self.width();
-//        let start = row * width;
-//        let colors = self.pixels_as_mut();
-//
-//        &mut colors[start..start + width]
-//    }
-//}
