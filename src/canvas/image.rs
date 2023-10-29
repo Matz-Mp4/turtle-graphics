@@ -1,4 +1,5 @@
 use crate::Color;
+use crate::BLACK;
 use crate::Canvas;
 use std::fs;
 use std::fs::File;
@@ -57,7 +58,7 @@ impl<'a> Canvas for ImageCanvas {
     }
 
     fn clear(&mut self) {
-        let data = vec![Color::black(); self.width * self.height];
+        let data = vec![BLACK; self.width * self.height];
         self.data = data;
     }
 
@@ -82,7 +83,7 @@ impl<'a> Canvas for ImageCanvas {
 
     fn new(width: usize, height: usize) -> Self {
         ImageCanvas {
-            data: vec![Color::black(); width * height],
+            data: vec![BLACK; width * height],
             width,
             height,
         }

@@ -1,3 +1,4 @@
+/// Color type where the range of [red,blue,green] is from [0.0] to [1.0].
 #[derive(Clone, Copy, Debug)]
 pub struct Color {
     pub red: f64,
@@ -5,61 +6,34 @@ pub struct Color {
     pub blue: f64,
 }
 
-pub const BLACK: Color = Color { red: 0.0, green: 0.0, blue: 0.0 };
-pub const WHITE: Color = Color { red: 1.0, green: 1.0, blue: 1.0 };
-pub const RED: Color =   Color { red: 1.0, green: 0.0, blue: 0.0 };
-pub const GREEN: Color = Color { red: 0.0, green: 1.0, blue: 0.0 };
-pub const BLUE: Color =  Color { red: 0.0, green: 0.0, blue: 1.0 };
+macro_rules! const_color {
+    ($($id:ident, ($r:expr, $g:expr, $b:expr)),*) => {
+       $( pub const $id: Color = Color {
+            red: $r,
+            green: $g,
+            blue: $b,
+        };)*
+    };
+}
+
+const_color! {
+    BLACK, (0.0,0.0,0.0) ,
+    WHITE, (1.0,1.0,1.0),
+    RED, (1.0,0.0,0.0),
+    GREEN, (0.0,1.0,0.0),
+    BLUE, (1.0,0.0,0.0),
+    ORANGE, (1.0,0.65,0.0),
+    CYAN, (0.3,0.35,0.35),
+    PURPLE,(0.57,0.11,0.7)
+}
 
 impl Color {
     pub fn new(red: f64, green: f64, blue: f64) -> Self {
         Self { red, green, blue }
     }
-
-    pub fn red() -> Color {
-        Color {
-            red: 1.0,
-            green: 0.0,
-            blue: 0.0,
-        }
-    }
-
-    pub fn green() -> Color {
-        Color {
-            red: 0.0,
-            green: 1.0,
-            blue: 0.0,
-        }
-    }
-
-    pub fn blue() -> Color {
-        Color {
-            red: 0.0,
-            green: 0.0,
-            blue: 1.0,
-        }
-    }
-
-    pub fn black() -> Color {
-        Color {
-            red: 0.0,
-            green: 0.0,
-            blue: 0.0,
-        }
-    }
-
-    pub fn white() -> Color {
-        Color {
-            red: 1.0,
-            green: 1.0,
-            blue: 1.0,
-        }
-    }
-
     pub fn color_into_pixel(&self) -> (u8, u8, u8) {
         let red = Self::scale_color_component(self.red);
         let blue = Self::scale_color_component(self.blue);
-
         let green = Self::scale_color_component(self.green);
         (red, green, blue)
     }
@@ -76,4 +50,3 @@ impl Color {
         (component * 255.0) as u8
     }
 }
-

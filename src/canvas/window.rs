@@ -1,6 +1,6 @@
 use std::ops::{Index, IndexMut};
 
-use crate::{Canvas, Color};
+use crate::{Canvas, Color, BLACK};
 
 pub struct WindowCanvas {
     data: Vec<Color>,
@@ -9,16 +9,16 @@ pub struct WindowCanvas {
     window: minifb::Window,
 }
 impl Canvas for WindowCanvas {
-    fn width(&self) -> i32{
+    fn width(&self) -> i32 {
         self.width as i32
     }
 
-    fn height(&self) -> i32{
+    fn height(&self) -> i32 {
         self.height as i32
     }
 
     fn clear(&mut self) {
-        let data = vec![Color::black(); self.width * self.height];
+        let data = vec![BLACK; self.width * self.height];
         self.data = data;
     }
 
@@ -29,12 +29,9 @@ impl Canvas for WindowCanvas {
     }
 
     fn color_mut_at(&mut self, row: usize, col: usize) -> &mut Color {
-
-
         /* &mut self.data[row * self.height+ col ] */
         &mut self.data[col * self.width + row]
     }
-   
 
     fn new(width: usize, height: usize) -> Self
     where
@@ -44,7 +41,7 @@ impl Canvas for WindowCanvas {
             resize: true,
             ..Default::default()
         };
-        let data = vec![Color::black(); width * height];
+        let data = vec![BLACK; width * height];
 
         let window = minifb::Window::new("TurtleGraphics", width, height, options)
             .expect("Failed to create window.");
@@ -91,7 +88,7 @@ impl WindowCanvas {
     }
 }
 
-impl Index<usize> for WindowCanvas{
+impl Index<usize> for WindowCanvas {
     type Output = [Color];
 
     fn index(&self, row: usize) -> &[Color] {
@@ -101,11 +98,10 @@ impl Index<usize> for WindowCanvas{
     }
 }
 
-impl IndexMut<usize> for WindowCanvas{
+impl IndexMut<usize> for WindowCanvas {
     fn index_mut(&mut self, row: usize) -> &mut [Color] {
         let start = row * self.width;
 
         &mut self.data[start..start + self.width]
-
     }
 }

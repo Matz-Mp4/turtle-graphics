@@ -40,7 +40,6 @@ impl<T: Real + Zero> TurtleLogo<T> {
     ///# Example
     ///```rust
     ///# use turtle_graphics::TurtleLogo;
-    ///
     ///    let tur = TurtleLogo::new((0.0, 0.0), (10.0, 10.0));
     ///    let x = *tur.point().x();
     ///    # assert_eq!(0.0,x);
@@ -76,7 +75,6 @@ impl<T: Real + Zero> TurtleLogo<T> {
     ///# Example
     ///```rust
     ///# use turtle_graphics::TurtleLogo;
-    ///     
     ///     let mut tur = TurtleLogo::new((42.0,69.0), (24.0,666.0));
     ///     tur = tur.with_point((0.0,20.0));
     ///```
@@ -131,7 +129,6 @@ impl<T: Real + Zero> TurtleLogo<T> {
     ///```rust
     ///# use turtle_graphics::TurtleLogo;
     ///# use std::f64::consts::PI;
-    ///
     ///     let mut tur = TurtleLogo::new((0.0,0.0), (10.0,20.0));
     ///     tur = tur.resize(0.1);
     ///
