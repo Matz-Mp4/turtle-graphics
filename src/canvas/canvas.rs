@@ -13,11 +13,13 @@ pub trait Canvas {
     fn clear(&mut self);
     fn color_at(&self, row: usize, col: usize) -> &Color;
     fn color_mut_at(&mut self, row: usize, col: usize) -> &mut Color;
-    //Define the canvas background.
-    //
-    //# use turtle_graphics::{Canvas, TurtleLogo, WindowCanvas, BLACK, WHITE};
-    //let mut canvas = WindowCanvas::new(500, 700);
-    //canvas.set_background(WHITE);
+    ///Define the canvas background.
+    ///
+    ///```rust
+    ///# use turtle_graphics::{Canvas, TurtleLogo, WindowCanvas, BLACK, WHITE};
+    ///let mut canvas = WindowCanvas::new(500, 700);
+    ///canvas.set_background(WHITE);
+    ///```
     fn set_background(&mut self, color: Color) {
         for row in 0..self.width() {
             for col in 0..self.height() {

@@ -165,25 +165,25 @@ impl<T: Real + Zero> TurtleLogo<T> {
         self.with_vector(Tuple2::new(x, y))
     }
 
-    //The turtle's head resize D steps n times
-    //# Example
-    // ```compile_fail
-    //# use std::f64::consts::PI;
-    //# use turtle_graphics::{Canvas, ImageCanvas, Tuple2, TurtleLogo, WindowCanvas, BLACK, WHITE};
-    // let mut canvas = ImageCanvas::new(500, 500);
-    // let mut turtle = TurtleLogo::new(Tuple2::new(150.0, 300.0), Tuple2::new(300.0, 0.0));
-    // canvas.set_background(WHITE);
-    //
-    // let mut draw_triangle= |mut tur: TurtleLogo<f64>| {
-    //     for _ in 0..4 {
-    //         tur = tur.forward(1.0, WHITE, &mut canvas);
-    //         tur = tur.turn(PI / 3.0);
-    //     }
-    //    tur
-    //  };
-    //
-    // turtle = turtle.scale(2, 3.0, &mut draw_triangle);
-    //```
+    ///The turtle's head resize D steps n times
+    ///# Example
+    /// ```rust
+    ///# use std::f64::consts::PI;
+    ///# use turtle_graphics::{Canvas, ImageCanvas, Tuple2, TurtleLogo, WindowCanvas, BLACK, WHITE};
+    /// let mut canvas = ImageCanvas::new(500, 500);
+    /// let mut turtle = TurtleLogo::new(Tuple2::new(150.0, 300.0), Tuple2::new(300.0, 0.0));
+    /// canvas.set_background(WHITE);
+    ///
+    /// let mut draw_triangle= |mut tur: TurtleLogo<f64>| {
+    ///     for _ in 0..4 {
+    ///         tur = tur.forward(1.0, WHITE, &mut canvas);
+    ///         tur = tur.turn(PI / 3.0);
+    ///     }
+    ///    tur
+    ///  };
+    ///
+    /// turtle = turtle.scale(2, 3.0, &mut draw_triangle);
+    ///```
     pub fn scale<F>(mut self, n: usize, scaling: T, instructions: &mut F) -> Self
     where
         F: FnMut(TurtleLogo<T>) -> TurtleLogo<T>,
@@ -194,24 +194,24 @@ impl<T: Real + Zero> TurtleLogo<T> {
         }
         self
     }
-    //The turtle changes her heading by spin her direction vector n times by an angle
-    // counterclockwise. 
-    //# Example
-    // ```compile_fail
-    //# use std::f64::consts::PI;
-    //# use turtle_graphics::{Canvas, ImageCanvas, Tuple2, TurtleLogo, WindowCanvas, BLACK, WHITE};
-    // let mut canvas = ImageCanvas::new(500, 500);
-    // let mut turtle = TurtleLogo::new(Tuple2::new(150.0, 300.0), Tuple2::new(300.0, 0.0));
-    // canvas.set_background(WHITE);
-    // let mut draw_pentagon = |mut tur: TurtleLogo<f64>| {
-    //     for _ in 0..5 {
-    //         tur = tur.forward(1.0, WHITE, &mut canvas);
-    //         tur = tur.turn(PI / 5.0);
-    //     }
-    //     tur
-    // };
-    // turtle = turtle.spin(10, PI / 6.0, &mut draw_pentagon);
-    // ```
+    ///The turtle changes her heading by spin her direction vector n times by an angle
+    /// counterclockwise. 
+    ///# Example
+    /// ```rust
+    ///# use std::f64::consts::PI;
+    ///# use turtle_graphics::{Canvas, ImageCanvas, Tuple2, TurtleLogo, WindowCanvas, BLACK, WHITE};
+    /// let mut canvas = ImageCanvas::new(500, 500);
+    /// let mut turtle = TurtleLogo::new(Tuple2::new(150.0, 300.0), Tuple2::new(300.0, 0.0));
+    /// canvas.set_background(WHITE);
+    /// let mut draw_pentagon = |mut tur: TurtleLogo<f64>| {
+    ///     for _ in 0..5 {
+    ///         tur = tur.forward(1.0, WHITE, &mut canvas);
+    ///         tur = tur.turn(PI / 5.0);
+    ///     }
+    ///     tur
+    /// };
+    /// turtle = turtle.spin(10, PI / 6.0, &mut draw_pentagon);
+    /// ```
     pub fn spin<F>(mut self, n: usize, angle: T, instructions: &mut F) -> Self
     where
         F: FnMut(TurtleLogo<T>) -> TurtleLogo<T>,
@@ -223,26 +223,26 @@ impl<T: Real + Zero> TurtleLogo<T> {
         self
     }
 
-    //The turtle moves forward D steps  n times along a straight line from her current position
-    //in the direction of her current heading.   
-    //# Example
-    /// ```compile_fail
-    //# use std::f64::consts::PI;
-    //# use turtle_graphics::{Canvas, ImageCanvas, Tuple2, TurtleLogo, WindowCanvas, BLACK, WHITE};
-    // let mut canvas = ImageCanvas::new(500, 500);
-    // let mut turtle = TurtleLogo::new(Tuple2::new(150.0, 300.0), Tuple2::new(300.0, 0.0));
-    // canvas.set_background(WHITE);
-    //
-    // let mut draw_square = |mut tur: TurtleLogo<f64>| {
-    //     for _ in 0..4 {
-    //         tur = tur.forward(1.0, WHITE, &mut canvas);
-    //         tur = tur.turn(PI / 4.0);
-    //     }
-    //    tur
-    //  };
-    //
-    // turtle = turtle.shift(2, 2.0, &mut draw_square);
-    //```
+   ///The turtle moves forward D steps  n times along a straight line from her current position
+   ///in the direction of her current heading.   
+   ///# Example
+   //// ```rust
+   ///# use std::f64::consts::PI;
+   ///# use turtle_graphics::{Canvas, ImageCanvas, Tuple2, TurtleLogo, WindowCanvas, BLACK, WHITE};
+   /// let mut canvas = ImageCanvas::new(500, 500);
+   /// let mut turtle = TurtleLogo::new(Tuple2::new(150.0, 300.0), Tuple2::new(300.0, 0.0));
+   /// canvas.set_background(WHITE);
+   ///
+   /// let mut draw_square = |mut tur: TurtleLogo<f64>| {
+   ///     for _ in 0..4 {
+   ///         tur = tur.forward(1.0, WHITE, &mut canvas);
+   ///         tur = tur.turn(PI / 4.0);
+   ///     }
+   ///    tur
+   ///  };
+   ///
+   /// turtle = turtle.shift(2, 2.0, &mut draw_square);
+   ///```
     pub fn shift<F>(mut self, n: usize, step: T, instructions: &mut F) -> Self
     where
         F: FnMut(TurtleLogo<T>) -> TurtleLogo<T>,
