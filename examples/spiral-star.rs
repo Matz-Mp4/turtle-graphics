@@ -1,4 +1,5 @@
 use std::f64::consts::PI;
+use turtle_graphics::BLACK;
 use turtle_graphics::Canvas;
 use turtle_graphics::Color;
 use turtle_graphics::ImageCanvas;
@@ -23,7 +24,7 @@ fn main() {
     let mut canvas = ImageCanvas::new(500, 500);
     let mut turtle = TurtleLogo::new(Tuple2::new(150.0, 300.0), Tuple2::new(300.0, 0.0));
     canvas.set_background(WHITE);
-    let mut star = |tur: TurtleLogo<f64>| star(tur, 5, Color::black(), &mut canvas);
+    let mut star = |tur: TurtleLogo<f64>| star(tur, 5, BLACK, &mut canvas);
     let mut scale = |tur: TurtleLogo<f64>| tur.scale(1, 0.9, &mut star);
     turtle = turtle.spin(19, -PI / 8.0, &mut scale);
     canvas.convert_to_ppm("Pictures/", "SpiralStar.ppm");

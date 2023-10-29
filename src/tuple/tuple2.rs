@@ -103,15 +103,4 @@ impl<T: Real + Zero> IndexMut<usize> for Tuple2<T> {
     }
 }
 
-//
-//impl<T> AsRef<dyn Tuple2<T>> for dyn Tuple2<T> {
-//    fn as_ref(&self) -> &(dyn Tuple2<T> + 'static) {
-//        self
-//    }
-//}
-//
-//impl<T> AsMut<dyn Tuple2<T>> for dyn Tuple2<T> {
-//    fn as_mut(&mut self) -> &mut (dyn Tuple2<T> + 'static) {
-//        self
-//    }
-//}
+

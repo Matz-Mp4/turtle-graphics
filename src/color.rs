@@ -1,8 +1,13 @@
-/// Color type where the range of [red,blue,green] is from [0.0] to [1.0].
+/// This crate provides us an abstraction for a color type 
+/// where the range of [red,blue,green] is from [0.0] to [1.0].
+///
 #[derive(Clone, Copy, Debug)]
 pub struct Color {
+    ///Value from 0.0 from 1.0
     pub red: f64,
+    ///Value from 0.0 from 1.0
     pub green: f64,
+    ///Value from 0.0 from 1.0
     pub blue: f64,
 }
 
@@ -28,6 +33,9 @@ const_color! {
 }
 
 impl Color {
+    ///Create a new Color from values in 0.0 - 1.0. This provides 
+    ///a more concise way to create Color values instead of using 
+    ///the manual Color {...} style.
     pub fn new(red: f64, green: f64, blue: f64) -> Self {
         Self { red, green, blue }
     }

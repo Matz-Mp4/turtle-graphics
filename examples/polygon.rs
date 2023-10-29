@@ -1,9 +1,11 @@
 use std::f64::consts::PI;
 
+use turtle_graphics::BLACK;
 use turtle_graphics::Canvas;
 use turtle_graphics::Color;
 use turtle_graphics::Tuple2;
 use turtle_graphics::TurtleLogo;
+use turtle_graphics::WHITE;
 use turtle_graphics::WindowCanvas;
 
 pub fn polygon(tur: &mut TurtleLogo<f64>, sides: usize, color: Color, can: &mut impl Canvas) {
@@ -16,10 +18,10 @@ pub fn polygon(tur: &mut TurtleLogo<f64>, sides: usize, color: Color, can: &mut 
 fn main() {
     let mut canvas = WindowCanvas::new(500, 400);
     let mut tur = TurtleLogo::new(Tuple2::new(100.0, 100.0), Tuple2::new(100.0, 0.0));
-    canvas.set_background(Color::white());
-    polygon(&mut tur, 4, Color::black(), &mut canvas);
+    canvas.set_background(WHITE);
+    polygon(&mut tur, 4, BLACK, &mut canvas);
     tur = tur.mov(2.0);
-    polygon(&mut tur, 5, Color::black(), &mut canvas);
+    polygon(&mut tur, 5, BLACK, &mut canvas);
     
     while !canvas.should_close() {
         canvas.display();

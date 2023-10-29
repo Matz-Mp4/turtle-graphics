@@ -13,7 +13,11 @@ pub trait Canvas {
     fn clear(&mut self);
     fn color_at(&self, row: usize, col: usize) -> &Color;
     fn color_mut_at(&mut self, row: usize, col: usize) -> &mut Color;
-    
+    //Define the canvas background.
+    //
+    //# use turtle_graphics::{Canvas, TurtleLogo, WindowCanvas, BLACK, WHITE};
+    //let mut canvas = WindowCanvas::new(500, 700);
+    //canvas.set_background(WHITE);
     fn set_background(&mut self, color: Color) {
         for row in 0..self.width() {
             for col in 0..self.height() {
@@ -23,6 +27,9 @@ pub trait Canvas {
     }
     ///Define a color of a pixel. The parameter x represents the column
     ///and the parameter represents y the row.
+    ///
+    ///if x > width or y > height, the method set_color gets a new coordi-
+    ///nate where x_new is x refelected and y_new is y refelected.
     fn set_color(&mut self, x: i32, y: i32, color: Color) {
         let temp_col = x.abs() % self.width();
         let temp_row = y.abs() % self.height();
@@ -34,17 +41,12 @@ pub trait Canvas {
     ///# Example
     ///```rust
     ///# use turtle_graphics::{ImageCanvas, Canvas, WHITE};
-    ///
-    ///
     ///    let mut canvas = ImageCanvas::new(600,600);
     ///    let a = (0.0,0.0);
     ///    let b = (600.0,600.0);
     ///    canvas.draw_line(&a,&b, WHITE);
-    ///    canvas.convert_to_ppm("", "canvas.ppm");
-    ///
+    ///    canvas.convert_to_ppm("pictures/", "diagonal_line.ppm");
     ///```
-    /// ![Diagonal Line](https://github.com/Matz-Mp4/turtle-graphics/blob/main/pictures/diagonal_line.png)
-    ///
     fn draw_line<T: Real + Zero>(
         &mut self,
         q1: &impl ITuple2<T>,
