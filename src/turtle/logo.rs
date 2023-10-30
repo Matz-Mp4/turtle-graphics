@@ -121,7 +121,7 @@ impl<T: Real + Zero> TurtleLogo<T> {
     pub fn mov(&self, step: T) -> Self {
         let x = *self.point.x() + *self.vector.x() * step;
         let y = *self.point.y() + *self.vector.y() * step;
-        self.with_point(Tuple2::new(x.round(), y.round()))
+        self.with_point(Tuple2::new(x, y))
     }
 
     ///The turtle changes the length of its step size (direction vector) by a factor.
